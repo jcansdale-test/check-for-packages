@@ -22,29 +22,22 @@ jobs:
         with:
           github-token: ${{ secrets.READ_PACKAGES_TOKEN }}
           script: |
-            try {
-              const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
-                { per_page: ${{ env.PER_PAGE }}
-              });
-              for(version of response.data) {
-                console.log("version: " + JSON.stringify(version))
-
-                const tags = version.metadata.docker.tags
-                for (var i = 0; i < tags.length; i++) {
-                    console.log("tag: " + tags[i])
-                    if (tags[i] === "${{ env.TAG }}") {
-                      console.log("returning true")
-                      return true
-                    }
-                  }
+            const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
+              { per_page: ${{ env.PER_PAGE }}
+            });
+            for(version of response.data) {
+              console.log("version: " + JSON.stringify(version))
+              const tags = version.metadata.docker.tags
+              for (var i = 0; i < tags.length; i++) {
+                console.log("tag: " + tags[i])
+                if (tags[i] === "${{ env.TAG }}") {
+                  console.log("returning true")
+                  return true
                 }
-              } catch(err) {
-                console.log("err: " + JSON.stringify(err))
               }
-
-              console.log("returning false")
-              return false
             }
+            console.log("returning false")
+            return false
         env:
           OWNER: ${{ matrix.user }}
           PACKAGE_NAME: ${{ matrix.package }}
