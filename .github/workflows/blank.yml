@@ -22,7 +22,5 @@ jobs:
         with:
           github-token: ${{ github.token }}
           script: |
-            const response = await github.request("GET /users/${{ matrix.user }}/docker/${{ matrix.package }}",
-              { per_page: 1
-            })
+            const response = await github.request("GET /users/${{ matrix.user }}/docker/${{ matrix.package }}")
             console.log(JSON.stringify(response))
