@@ -31,9 +31,17 @@ jobs:
               const tags = version.metadata.docker.tags
               for (var i = 0; i < tags.length; i++) {
                   console.log("tag: " + tags[i])
-              }              
+                  if (tags[i] === "${{ env.TAG }}") {
+                    console.log("returning true")
+                    return true
+                  }
+              }
+
+              console.log("returning false")
+              return false
             }
         env:
           OWNER: ${{ matrix.user }}
           PACKAGE_NAME: ${{ matrix.package }}
           PER_PAGE: 100
+          TAG: latest
