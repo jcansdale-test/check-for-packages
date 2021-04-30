@@ -17,3 +17,12 @@ jobs:
     steps:
       - name: Check for package
         run: curl --silent --head --write-out "%{http_code}" -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/docker/${{ matrix.package }}
+
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const response = await github.request("GET /users/${{ matrix.user }}/docker/${{ matrix.package }}",
+              { per_page: 1
+            })
+            console.log(JSON.stringify(response))
