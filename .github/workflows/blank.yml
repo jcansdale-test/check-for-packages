@@ -23,7 +23,7 @@ jobs:
           result-encoding: json
           script: |
             try {
-              const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
+              const response = await github.request("GET /users/${{ env.USER }}/packages/docker/${{ env.PACKAGE }}/versions",
                 { per_page: 100
               });
               for(version of response.data) {
@@ -39,8 +39,8 @@ jobs:
             }
             return false
         env:
-          OWNER: ${{ matrix.user }}
-          PACKAGE_NAME: ${{ matrix.package }}
+          USER: ${{ matrix.user }}
+          PACKAGE: ${{ matrix.package }}
           TAG: latest
 
       - name: Show result
