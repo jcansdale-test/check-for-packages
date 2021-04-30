@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        user: [sondrelgckages]
+        user: [sondrelg]
         package: [base, does-not-exist]
 
     steps:
