@@ -27,7 +27,7 @@ jobs:
             });
             for(version of response.data) {
               console.log("version: " + JSON.stringify(version))
-              for(tag of version.metadata.tags) {
+              for(tag in version.metadata.tags) {
                   console.log("tag: " + tag)
               }
             }
