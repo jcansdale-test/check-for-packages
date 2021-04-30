@@ -16,13 +16,13 @@ jobs:
 
     steps:
       - name: Check for package
-        run: curl --silent --head --write-out "%{http_code}" -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/docker/${{ matrix.package }}
+        run: curl --silent --head --write-out "%{http_code}" -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/packages/docker/${{ matrix.package }}
 
       - uses: actions/github-script@v3
         with:
           github-token: ${{ github.token }}
           script: |
-            const response = await github.request("GET /users/${{ env.OWNER }}/packages/container/${{ env.PACKAGE_NAME }}/versions",
+            const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
               { per_page: ${{ env.PER_PAGE }}
             });
             for(version of response.data) {
