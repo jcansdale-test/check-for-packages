@@ -16,4 +16,4 @@ jobs:
 
     steps:
       - name: Check for package
-        run: curl -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/docker/${{ matrix.package }} -o -I -L -s -w "%{http_code}"
+        run: curl -s -w "%{http_code}" -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/docker/${{ matrix.package }}
