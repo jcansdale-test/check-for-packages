@@ -22,7 +22,7 @@ jobs:
         with:
           github-token: ${{ secrets.READ_PACKAGES_TOKEN }}
           id: check-for-tag
-          result-encoding: string
+          result-encoding: json
           script: |
             try {
               const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
@@ -51,4 +51,4 @@ jobs:
           TAG: latest
 
       - name: Show result
-        run: echo "${{steps.check-for-tag.outputs.result}}"
+        run: echo "${{ steps.check-for-tag.outputs.result }}"
