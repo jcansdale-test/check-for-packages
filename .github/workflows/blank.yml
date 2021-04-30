@@ -11,8 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        user: [jcansdale-test]
-        package: [image, does-not-exist]
+        user: [sondrelgckages]
+        package: [base, does-not-exist]
 
     steps:
       - name: Check for package
