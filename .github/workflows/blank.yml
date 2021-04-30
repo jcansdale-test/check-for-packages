@@ -26,15 +26,12 @@ jobs:
           script: |
             try {
               const response = await github.request("GET /users/${{ env.OWNER }}/packages/docker/${{ env.PACKAGE_NAME }}/versions",
-                { per_page: ${{ env.PER_PAGE }}
+                { per_page: 100
               });
               for(version of response.data) {
-                console.log("version: " + JSON.stringify(version))
                 const tags = version.metadata.docker.tags
                 for (var i = 0; i < tags.length; i++) {
-                  console.log("tag: " + tags[i])
                   if (tags[i] === "${{ env.TAG }}") {
-                    console.log("returning true")
                     return true
                   }
                 }
@@ -42,16 +39,15 @@ jobs:
             } catch(err) {
               console.log(`status: ${err.status}`)
             }
-            console.log("returning false")
             return false
         env:
           OWNER: ${{ matrix.user }}
           PACKAGE_NAME: ${{ matrix.package }}
-          PER_PAGE: 100
           TAG: latest
 
       - name: Show result
         run: echo "${{ steps.check-for-tag.outputs.result }}"
 
-      - if: ${{ steps.check-for-tag.outputs.result == 'false' }}
+      - name: Run if tags doesn't exist
+        if: ${{ steps.check-for-tag.outputs.result == 'false' }}
         run: echo "Tag does not exist!"
