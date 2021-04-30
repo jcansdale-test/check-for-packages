@@ -53,5 +53,5 @@ jobs:
       - name: Show result
         run: echo "${{ steps.check-for-tag.outputs.result }}"
 
-      - if: ${{ steps.check-for-tag.outputs.result == false }}
+      - if: ${{ steps.check-for-tag.outputs.result == 'false' }}
         run: echo "Tag does not exist!"
