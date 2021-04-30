@@ -28,7 +28,7 @@ jobs:
             for(version of response.data) {
               console.log("version: " + JSON.stringify(version))
 
-              const tags = version.metadata.tags
+              const tags = version.metadata.docker.tags
               for (var i = 0; i < tags.length; i++) {
                   console.log("tag: " + tags[i])
               }              
