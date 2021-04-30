@@ -26,7 +26,10 @@ jobs:
               { per_page: ${{ env.PER_PAGE }}
             });
             for(version of response.data) {
-                console.log("version: " + JSON.stringify(version))
+              console.log("version: " + JSON.stringify(version))
+              for(tag of version.metadata.tags) {
+                  console.log("tag: " + tag)
+              }
             }
         env:
           OWNER: ${{ matrix.user }}
