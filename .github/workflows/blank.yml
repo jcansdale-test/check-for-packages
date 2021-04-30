@@ -1,0 +1,19 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        user: [sondrelgckages]
+        package: [base, base_does_not_exist]
+
+    steps:
+      - name: Check for package
+        run: curl -u token:${{ github.token }} https://api.github.com/users/${{ matrix.user }}/docker/${{ matrix.package }} -o -I -L -s -w "%{http_code}"
