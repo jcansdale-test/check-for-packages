@@ -19,9 +19,9 @@ jobs:
         run: curl --silent --head --write-out "%{http_code}" -u token:${{ secrets.READ_PACKAGES_TOKEN }} https://api.github.com/users/${{ matrix.user }}/packages/docker/${{ matrix.package }}
 
       - uses: actions/github-script@v3
+        id: check-for-tag
         with:
           github-token: ${{ secrets.READ_PACKAGES_TOKEN }}
-          id: check-for-tag
           result-encoding: json
           script: |
             try {
