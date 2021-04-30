@@ -26,7 +26,7 @@ jobs:
               { per_page: ${{ env.PER_PAGE }}
             });
             for(version of response.data) {
-                console.log("version.name: " + version.name)
+                console.log("version: " + JSON.stringify(version))
             }
         env:
           OWNER: ${{ matrix.user }}
